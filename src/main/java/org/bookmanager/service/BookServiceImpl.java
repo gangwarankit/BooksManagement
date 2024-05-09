@@ -49,13 +49,11 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public int updateBook(Book book) {
-        bookDao.updateBook(book);
-        return 0;
+        return bookDao.updateBook(book);
     }
 
     @Override
     public int deleteBook(int id) {
-        bookDao.deleteBook(id);
-        return 0;
+        return bookDao.deleteBook(id);
     }
 }
