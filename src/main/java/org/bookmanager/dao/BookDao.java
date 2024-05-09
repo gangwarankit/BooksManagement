@@ -17,7 +17,7 @@ public interface BookDao {
 
     Book getBookById(int id);
 
-    int updateBook(Book emp);
+    int updateBook(Book book);
 
     int deleteBook(int id);
 }

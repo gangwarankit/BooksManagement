@@ -34,8 +34,8 @@ public class BookDaoImpl implements BookDao{
     @Override
     public List<Book> getAllBooks() {
         String qry = "select * from Book";
-        List<Book> emplist = template.query(qry, new BeanPropertyRowMapper<Book>(Book.class));
-        return emplist;
+        List<Book> booklist = template.query(qry, new BeanPropertyRowMapper<Book>(Book.class));
+        return booklist;
     }
 
     @Override
