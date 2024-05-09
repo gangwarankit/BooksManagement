@@ -2,7 +2,7 @@ package org.bookmanager.dao;
 
 import org.bookmanager.beans.Book;
 import org.bookmanager.exceptions.BookIdExistException;
-import org.bookmanager.exceptions.BookIdNotAvailable;
+import org.bookmanager.exceptions.BookNotAvailable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,31 +41,37 @@ public class BookDaoImpl implements BookDao{
     @Override
     public List<Book> getBooksByPublication(String publication) {
         String qry = "select * from Book where publication=?";
-        List<Book> emplist = template.query(qry, new BeanPropertyRowMapper<Book>(Book.class), publication);
-        return emplist;
+        List<Book> books = template.query(qry, new BeanPropertyRowMapper<Book>(Book.class), publication);
+        if(books.size()==0)
+            throw new BookNotAvailable();
+        return books;
     }
 
     @Override
     public List<Book> getBooksByAuthor(String author) {
         String qry = "select * from Book where author=?";
-        List<Book> emplist = template.query(qry, new BeanPropertyRowMapper<Book>(Book.class), author);
-        return emplist;
+        List<Book> books = template.query(qry, new BeanPropertyRowMapper<Book>(Book.class), author);
+        if(books.size()==0)
+            throw new BookNotAvailable();
+        return books;
     }
 
     @Override
     public Book getBookByTitle(String title) {
         String qry = "select * from Book where title=?";
-        Book book = template.queryForObject(qry, new BeanPropertyRowMapper<Book>(Book.class), title);
-        return book;
+        List<Book> books = template.query(qry, new BeanPropertyRowMapper<Book>(Book.class), title);
+        if(books.size()==0)
+            throw new BookNotAvailable();
+        return books.get(0);
     }
 
     @Override
     public Book getBookById(int id) {
         String qry = "select * from Book where bookId=?";
-        List<Book> book = template.query(qry, new BeanPropertyRowMapper<Book>(Book.class), id);
-        if(book.size()==0)
-            throw new BookIdNotAvailable();
-        return book.get(0);
+        List<Book> books = template.query(qry, new BeanPropertyRowMapper<Book>(Book.class), id);
+        if(books.size()==0)
+            throw new BookNotAvailable();
+        return books.get(0);
     }
 
     @Override

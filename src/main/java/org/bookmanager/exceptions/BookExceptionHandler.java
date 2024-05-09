@@ -13,8 +13,8 @@ public class BookExceptionHandler {
     }
 
 
-    @ExceptionHandler(value=BookIdNotAvailable.class)
-    public ResponseEntity<String> bookIdNotAvailable(BookIdNotAvailable ex){
+    @ExceptionHandler(value=BookNotAvailable.class)
+    public ResponseEntity<String> bookIdNotAvailable(BookNotAvailable ex){
         return new ResponseEntity<String>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }

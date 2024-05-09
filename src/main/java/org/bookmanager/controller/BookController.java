@@ -38,36 +38,21 @@ public class BookController {
 
     @GetMapping("/findBookByTitle/{title}")
     public ResponseEntity<Book> getBookByTitle(@PathVariable("title") String title) {
+        Book book = bookService.getBookByTitle(title);
+        return new ResponseEntity<>(book, HttpStatus.OK);
 
-        try {
-            Book book = bookService.getBookByTitle(title);
-            return new ResponseEntity<>(book, HttpStatus.OK);
-        }
-        catch(RuntimeException e){
-            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-        }
     }
     @GetMapping("/findBooksByAuthor/{author}")
     public ResponseEntity<List<Book>> getBookByAuthor(@PathVariable("author") String author) {
+        List<Book> book = bookService.getBooksByAuthor(author);
+        return new ResponseEntity<>(book, HttpStatus.OK);
 
-        try {
-            List<Book> book = bookService.getBooksByAuthor(author);
-            return new ResponseEntity<>(book, HttpStatus.OK);
-        }
-        catch(RuntimeException e){
-            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-        }
     }
     @GetMapping("/findBooksByPublications/{publication}")
     public ResponseEntity<List<Book>> getBookByPublications(@PathVariable("publication") String publication) {
 
-        try {
             List<Book> book = bookService.getBooksByPublication(publication);
             return new ResponseEntity<>(book, HttpStatus.OK);
-        }
-        catch(RuntimeException e){
-            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-        }
     }
 
 
